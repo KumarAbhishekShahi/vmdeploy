@@ -8,7 +8,10 @@ trigger:
 
 pool:
   name: Azure Pipelines
+
 steps:
+- checkout: self
+
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform'
   inputs:
