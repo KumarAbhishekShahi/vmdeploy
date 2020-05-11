@@ -8,7 +8,7 @@ trigger:
 
 pool:
   vmImage: 'vs2017-win2016'
-  name: tfpoc
+  name: Azure Pipelines
 
 steps:
 - checkout: self
@@ -28,7 +28,7 @@ steps:
 
 - task: Terraform@2
   inputs:
-    TemplatePath: '$(System.DefaultWorkingDirectory)/tfpoc-CI/drop/Terraform'
+    TemplatePath: '$(System.ArtifactsDirectory)/drop/Terraform'
     Arguments: 'init'
     InstallTerraform: true
     UseAzureSub: true
