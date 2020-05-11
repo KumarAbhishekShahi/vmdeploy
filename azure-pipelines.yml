@@ -8,7 +8,7 @@ trigger:
 
 pool:
   vmImage: 'vs2017-win2016'
-  name: Azure Pipelines
+  name: tfpoc
 
 steps:
 - checkout: self
@@ -22,7 +22,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
