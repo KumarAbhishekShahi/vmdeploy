@@ -38,5 +38,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'terraform init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    script: |
+      cd $(System.DefaultWorkingDirectory)
+      terraform init
+      terraform plan
