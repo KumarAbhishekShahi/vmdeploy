@@ -26,9 +26,14 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
+- task: DownloadBuildArtifacts@0
+  inputs:
+    artifactName: WebSite
+    downloadPath: $(System.DefaultWorkingDirectory)
+
 - task: Terraform@2
   inputs:
-    TemplatePath: '$(Build.ArtifactStagingDirectory)/_tfpoc-CI/drop/Terraform'
+    TemplatePath: $(System.DefaultWorkingDirectory)/_tfpoc-CI/drop/Terraform'
     Arguments: 'init'
     InstallTerraform: true
     UseAzureSub: true
