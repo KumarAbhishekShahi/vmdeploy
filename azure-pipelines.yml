@@ -41,4 +41,4 @@ steps:
     script: |
       terraform init
       terraform plan
-    workingDirectory: $(System.DefaultWorkingDirectory)
+    workingDirectory: 'D:\a\1\s\drop\Terraform\'
