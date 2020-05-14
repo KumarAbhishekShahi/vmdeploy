@@ -17,14 +17,7 @@ steps:
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform'
   inputs:
     SourceFolder: config
-    Contents: '**'
-    TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
-
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform'
-  inputs:
-    SourceFolder: 
-    Contents: '**.yml'
+    Contents: '**.tf'
     TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
 
 - task: PublishBuildArtifacts@1
@@ -32,6 +25,12 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- task: DownloadBuildArtifacts@0
+  displayName: 'Download Build Artifacts'
+  inputs:
+    artifactName: drop
+    downloadPath: $(System.DefaultWorkingDirectory)
 
 - task: TerraformInstaller@0
   inputs:
@@ -42,5 +41,6 @@ steps:
     azureSubscription: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
     scriptType: 'ps'
     scriptLocation: 'inlineScript'
-    inlineScript: 'terraform init'
-    useGlobalConfig: true
+    inlineScript: |
+      cd $(System.DefaultWorkingDirectory)
+      terraform init
