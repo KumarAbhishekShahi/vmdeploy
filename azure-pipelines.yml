@@ -36,9 +36,12 @@ steps:
   inputs:
     terraformVersion: '0.12.25'
 
-- task: CmdLine@2
+- task: AzureCLI@2
   inputs:
-    script: |
+    azureSubscription: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
       terraform init
       terraform plan
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
