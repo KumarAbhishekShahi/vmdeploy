@@ -17,7 +17,7 @@ steps:
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform'
   inputs:
     SourceFolder: config
-    Contents: '**.tf'
+    Contents: '**'
     TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
 
 - task: PublishBuildArtifacts@1
