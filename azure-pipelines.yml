@@ -33,7 +33,7 @@ steps:
 
 - task: Terraform@2
   inputs:
-    TemplatePath: $(System.DefaultWorkingDirectory)/_tfpoc-CI/drop/Terraform'
+    TemplatePath: $(System.DefaultWorkingDirectory)/drop/Terraform'
     Arguments: 'init'
     InstallTerraform: true
     UseAzureSub: true
