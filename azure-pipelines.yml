@@ -34,7 +34,9 @@ steps:
 
 - task: TerraformInstaller@0
   inputs:
-    terraformVersion: '0.12.3'
+    terraformVersion: '0.12.25'
+
+
 
 - task: AzureCLI@2
   inputs:
@@ -42,7 +44,8 @@ steps:
     scriptType: 'ps'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      cd $(System.DefaultWorkingDirectory)
-      terraform init
-      terraform plan
-      terraform show
+
+- task: CmdLine@2
+  inputs:
+    script: 'terraform init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
