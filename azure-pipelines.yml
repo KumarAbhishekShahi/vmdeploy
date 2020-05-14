@@ -28,7 +28,7 @@ steps:
 
 - task: DownloadBuildArtifacts@0
   inputs:
-    artifactName: WebSite
+    artifactName: 'drop'
     downloadPath: $(System.DefaultWorkingDirectory)
 
 - task: Terraform@2
