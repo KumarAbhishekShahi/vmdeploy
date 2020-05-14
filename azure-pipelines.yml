@@ -20,6 +20,13 @@ steps:
     Contents: '**'
     TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
 
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform'
+  inputs:
+    SourceFolder: 
+    Contents: '**.yml'
+    TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
