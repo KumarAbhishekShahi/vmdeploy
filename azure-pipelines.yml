@@ -12,15 +12,17 @@ pool:
 
 steps:
 - checkout: self
+  displayName: "Checkout Pipeline"
 
 - task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform'
+  displayName: 'Copy Files to Stage Directory'
   inputs:
     SourceFolder: config
     Contents: '**.tf'
     TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
 
 - task: PublishBuildArtifacts@1
+  displayName: "Publish Build Artifacts"
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
@@ -33,17 +35,39 @@ steps:
     downloadPath: $(System.DefaultWorkingDirectory)
 
 - task: TerraformInstaller@0
+  displayName: "Terraform Install"
   inputs:
     terraformVersion: '0.12.25'
 
 - task: AzureCLI@2
+  displayName: "Terraform init"
   inputs:
     azureSubscription: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
     scriptType: 'ps'
     scriptLocation: 'inlineScript'
     inlineScript: |
       terraform init
-      terraform plan
     addSpnToEnvironment: true
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
+- task: AzureCLI@2
+  displayName: "Terraform Plan"
+  inputs:
+    azureSubscription: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      terraform plan
+    addSpnToEnvironment: true
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+- task: AzureCLI@2
+  displayName: "Terraform Apply"
+  inputs:
+    azureSubscription: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      terraform apply -auto-approve
+    addSpnToEnvironment: true
+    workingDirectory: 'D:\a\1\s\drop\Terraform\'
