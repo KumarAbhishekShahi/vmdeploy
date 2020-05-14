@@ -44,3 +44,5 @@ steps:
     inlineScript: |
       cd $(System.DefaultWorkingDirectory)
       terraform init
+      terraform plan
+      terraform show
