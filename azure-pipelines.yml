@@ -52,35 +52,12 @@ steps:
     addSpnToEnvironment: true
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
-- task: AzureCLI@2
-  displayName: "Terraform init"
+- task: TerraformTaskV1@0
   inputs:
-    azureSubscription: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
-    scriptType: 'ps'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      terraform init
-    addSpnToEnvironment: true
-    workingDirectory: 'D:\a\1\s\drop\Terraform\'
-
-- task: AzureCLI@2
-  displayName: "Terraform Plan"
-  inputs:
-    azureSubscription: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
-    scriptType: 'ps'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      terraform plan
-    addSpnToEnvironment: true
-    workingDirectory: 'D:\a\1\s\drop\Terraform\'
-
-- task: AzureCLI@2
-  displayName: "Terraform Apply"
-  inputs:
-    azureSubscription: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
-    scriptType: 'ps'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      terraform apply -auto-approve
-    addSpnToEnvironment: true
-    workingDirectory: 'D:\a\1\s\drop\Terraform\'
+    provider: 'azurerm'
+    command: 'init'
+    backendServiceArm: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
+    backendAzureRmResourceGroupName: '$(TerraformBackend.ResourceGroup)'
+    backendAzureRmStorageAccountName: '$(TerraformBackend.StorageAccount)'
+    backendAzureRmContainerName: 'stage'
+    backendAzureRmKey: 'tf/terraform.tfstate'
