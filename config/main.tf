@@ -24,13 +24,13 @@ resource "azurerm_virtual_network" "vnet" {
   name                = "myTFVnet"
   address_space       = ["10.0.0.0/16"]
   location            = "westus2"
-  resource_group_name = $(TerraformBackend.ResourceGroup)
+  resource_group_name = "myTFResourceGroup"
 }
 
 # Create subnet
 resource "azurerm_subnet" "subnet" {
   name                 = "myTFSubnet"
-  resource_group_name  = $(TerraformBackend.ResourceGroup)
+  resource_group_name  =  "myTFResourceGroup"
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefix       = "10.0.1.0/24"
 }
@@ -39,7 +39,7 @@ resource "azurerm_subnet" "subnet" {
 resource "azurerm_public_ip" "publicip" {
   name                = "myTFPublicIP"
   location            = "westus2"
-  resource_group_name = $(TerraformBackend.ResourceGroup)
+  resource_group_name =  "myTFResourceGroup"
   allocation_method   = "Static"
 }
 
@@ -48,7 +48,7 @@ resource "azurerm_public_ip" "publicip" {
 resource "azurerm_network_security_group" "nsg" {
   name                = "myTFNSG"
   location            = "westus2"
-  resource_group_name = $(TerraformBackend.ResourceGroup)
+  resource_group_name =  "myTFResourceGroup"
 
   security_rule {
     name                       = "SSH"
@@ -67,7 +67,7 @@ resource "azurerm_network_security_group" "nsg" {
 resource "azurerm_network_interface" "nic" {
   name                      = "myNIC"
   location                  = "westus2"
-  resource_group_name       = $(TerraformBackend.ResourceGroup)
+  resource_group_name       =  "myTFResourceGroup"
   network_security_group_id = azurerm_network_security_group.nsg.id
 
   ip_configuration {
@@ -82,7 +82,7 @@ resource "azurerm_network_interface" "nic" {
 resource "azurerm_virtual_machine" "vm" {
   name                  = "myTFVM"
   location              = "westus2"
-  resource_group_name   = $(TerraformBackend.ResourceGroup)
+  resource_group_name   =  "myTFResourceGroup"
   network_interface_ids = [azurerm_network_interface.nic.id]
   vm_size               = "Standard_DS1_v2"
 
