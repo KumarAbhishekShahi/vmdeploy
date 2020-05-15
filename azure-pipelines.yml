@@ -70,6 +70,7 @@ steps:
     backendServiceArm: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
     backendAzureRmResourceGroupName: '$(TerraformBackend.ResourceGroup)'
     backendAzureRmStorageAccountName: '$(TerraformBackend.StorageAccount)'
+    environmentServiceNameAzureRM: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
     backendAzureRmContainerName: 'stage'
     backendAzureRmKey: 'tf/terraform.tfstate'
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
