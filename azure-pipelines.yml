@@ -62,3 +62,14 @@ steps:
     backendAzureRmContainerName: 'stage'
     backendAzureRmKey: 'tf/terraform.tfstate'
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
+
+- task: TerraformTaskV1@0
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    backendServiceArm: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
+    backendAzureRmResourceGroupName: '$(TerraformBackend.ResourceGroup)'
+    backendAzureRmStorageAccountName: '$(TerraformBackend.StorageAccount)'
+    backendAzureRmContainerName: 'stage'
+    backendAzureRmKey: 'tf/terraform.tfstate'
+    workingDirectory: 'D:\a\1\s\drop\Terraform\'
