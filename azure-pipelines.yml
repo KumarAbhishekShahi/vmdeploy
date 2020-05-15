@@ -40,6 +40,19 @@ steps:
     terraformVersion: '0.12.25'
 
 - task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az group create --location eastus --name $(TerraformBackend.ResourceGroup)
+      az storage account create --name $(TerraformBackend.StorageAccount) --resource-group $(TerraformBackend.ResourceGroup) --location eastus --sku Standard_LRS
+      az storage container create --name staging --account-name $(TerraformBackend.StorageAccount)
+      STORAGE_ACCOUNT_KEY=$(az storage account keys list -g $(TerraformBackend.ResourceGroup) -n $(TerraformBackend.StorageAccount) | jq ".[0].value" -r)
+    addSpnToEnvironment: true
+    workingDirectory: 'D:\a\1\s\drop\Terraform\'
+
+- task: AzureCLI@2
   displayName: "Terraform init"
   inputs:
     azureSubscription: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
