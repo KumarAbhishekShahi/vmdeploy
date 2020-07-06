@@ -52,7 +52,7 @@ steps:
     addSpnToEnvironment: true
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
-- task: Terraform Init
+- task: TerraformInit
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -63,7 +63,7 @@ steps:
     backendAzureRmKey: 'tf/terraform.tfstate'
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
-- task: Terraform Plan
+- task: TerraformPlan
   inputs:
     provider: 'azurerm'
     command: 'plan'
@@ -75,7 +75,7 @@ steps:
     backendAzureRmKey: 'tf/terraform.tfstate'
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
-- task: Terraform Apply
+- task: TerraformApply
   inputs:
     provider: 'azurerm'
     command: 'apply'
@@ -87,7 +87,7 @@ steps:
     backendAzureRmKey: 'tf/terraform.tfstate'
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
-- task: Install Tomcat
+- task: InstallTomcat
   inputs:
     sshEndpoint: 'VMCon'
     runOptions: 'inline'
