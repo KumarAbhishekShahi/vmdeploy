@@ -40,6 +40,7 @@ steps:
     terraformVersion: '0.12.25'
 
 - task: AzureCLI@2
+  displayName: "Prep Step for Terraform"
   inputs:
     azureSubscription: 'Azure for Students (c4b8ac58-e4e0-438d-a04e-30604e28751c)'
     scriptType: 'bash'
@@ -53,6 +54,7 @@ steps:
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
 - task: TerraformTaskV1@0
+  displayName: "Terraform Init"
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -64,6 +66,7 @@ steps:
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
 - task: TerraformTaskV1@0
+  displayName: "Terraform Plan"
   inputs:
     provider: 'azurerm'
     command: 'plan'
@@ -76,6 +79,7 @@ steps:
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
 - task: TerraformTaskV1@0
+  displayName: "Terraform Apply"
   inputs:
     provider: 'azurerm'
     command: 'apply'
@@ -88,6 +92,7 @@ steps:
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
 - task: SSH@0
+  displayName: "Install and Configure - JDK, Tomcat"
   inputs:
     sshEndpoint: 'VMCon'
     runOptions: 'inline'
