@@ -52,7 +52,7 @@ steps:
     addSpnToEnvironment: true
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
-- task: TerraformTaskV1@0
+- task: Terraform Init
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -63,7 +63,7 @@ steps:
     backendAzureRmKey: 'tf/terraform.tfstate'
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
-- task: TerraformTaskV1@0
+- task: Terraform Plan
   inputs:
     provider: 'azurerm'
     command: 'plan'
@@ -75,7 +75,7 @@ steps:
     backendAzureRmKey: 'tf/terraform.tfstate'
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
-- task: TerraformTaskV1@0
+- task: Terraform Apply
   inputs:
     provider: 'azurerm'
     command: 'apply'
@@ -86,3 +86,4 @@ steps:
     backendAzureRmContainerName: 'stage'
     backendAzureRmKey: 'tf/terraform.tfstate'
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
+
