@@ -87,3 +87,33 @@ steps:
     backendAzureRmKey: 'tf/terraform.tfstate'
     workingDirectory: 'D:\a\1\s\drop\Terraform\'
 
+- task: Install Tomcat
+  inputs:
+    sshEndpoint: 'VMCon'
+    runOptions: 'inline'
+    inline: |
+      #update Ubuntu
+      sudo apt-get update
+      #install JDK
+      yes | sudo apt-get install default-jdk
+      #Create Tomcat group
+      sudo groupadd tomcat
+      #create tomcat user
+      sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
+      #goto tmp folder
+      cd /tmp
+      #install tomcat from given URL
+      curl -O http://apachemirror.wuchna.com/tomcat/tomcat-8/v8.5.56/bin/apache-tomcat-8.5.56.tar.gz
+      #create folder and extract archive
+      sudo mkdir -p /opt/tomcat
+      sudo tar xzvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
+      cd /opt/tomcat
+      sudo chown -R tomcat webapps/ work/ temp/ logs/
+      #Update permission
+      sudo chgrp -R tomcat /opt/tomcat
+      sudo chmod -R g+r conf
+      sudo chmod g+x conf
+      #Start tomcat
+      sudo chmod 777 /opt/tomcat/bin/startup.sh
+      sudo /opt/tomcat/bin/startup.sh
+    readyTimeout: '20000'
